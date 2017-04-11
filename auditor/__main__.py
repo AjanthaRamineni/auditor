@@ -32,7 +32,11 @@ _output = '--output'
 _do_clean = '--clean'
 _verbose = '--verbose'
 
-def main(args=docopt(docstr)):
+def console_cmd():
+    args = docopt(docstr)
+    main(args)
+
+def main(args):
     with open(args[_config], 'r') as config_file:
         global config
         config = yaml.load(config_file.read())
@@ -159,7 +163,6 @@ def rows_format(rows):
     return text + '\n'
 
 if __name__ == '__main__':
-    args = docopt(docstr)
-    main(args)
+    console_cmd()
     exit()
 
