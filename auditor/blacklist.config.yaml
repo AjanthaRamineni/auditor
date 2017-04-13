@@ -1,0 +1,14 @@
+blacklist:
+- {header_name: STUDY_ID, vals_file_path: configs/example_bad_subj.yaml}
+- {header_name: ORD_VALUE, vals_file_path: configs/empty.yaml}
+csv_conf: {delimiter: ',', quotechar: '"'}
+error_strings: {blacklisted: <ON_BLACKLIST>, empty_cell: <EMPTY_CELL>}
+header_meaning: {lab_type: NAME, subject: STUDY_ID, test_date: RESULT_DATE, unit: REFERENCE_UNIT,
+  value: ORD_VALUE}
+headers: [STUDY_ID, NAME, ORD_VALUE, REFERENCE_UNIT, RESULT_DATE, consent_date]
+mappings:
+- header: ORD_VALUE
+  maps: [is_blacklist]
+- header: STUDY_ID
+  maps: [is_blacklist]
+  maps: [is_blacklist]
