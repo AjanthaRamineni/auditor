@@ -14,6 +14,7 @@ import yaml
 _file = 'Workbook1.csv'
 _config = 'blacklist.config.yaml'
 _output = 'output.csv'
+_verbose = 'blacklisted'
 import pdb
 
 class Test(unittest.TestCase):
@@ -71,28 +72,31 @@ class Test(unittest.TestCase):
  #        	return self.bad_data
 
 	def test_blacklisted(self):
-		nonlocal headers
-		nonlocal mappings
+		with open(_config, 'r') as config_file:
+			global config
+			config = yaml.load(config_file.read())
+
+		mappings = Mappings(config,verbose=_verbose)
+
+		header = config.get('new_headers')
 		cell = row[index]
 		for mapping in config['mappings']:
 			if headers[index] == mapping['header']:
 				for map_index, my_map in enumerate(mapping['maps']):
 					kwargs = {
-						'item': cell,
-						'headers': headers,
-						'header': headers[index],
-						'index': index,
-						'row': row,
-						'map': mapping['maps'][map_index]
-							}
-		with open(_config, 'r') as config_file
-			global config
-			config = yaml.load(config_file.read())
-		csv_file = open(_file, 'r')
-		data = csv.reader(csv_file, **config['csv_conf'])
-		data1 = Mappings.is_blacklist(**kwargs)
+                        'item': cell,
+                        'headers': headers,
+                        'header': headers[index],
+                        'index': index,
+                        'row': row,
+                        'map': mapping['maps'][map_index]
+                    }
+
+			csv_file = open(_file, 'r')
+			data = csv.reader(csv_file, **config['csv_conf'])
+			data1 = Mappings.is_blacklist(**kwargs)
 		
-		print(data1)
+			print(data1)
 unittest.main()
 
 

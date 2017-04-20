@@ -6,29 +6,29 @@ import dateutil.parser as date_parser
 class Mappings(object):
 
     def __init__(self, config, **kwargs):
-        self.bad_data = config['error_strings']['bad_data']
-        self.empty_cell = config['error_strings']['empty_cell']
+        #self.bad_data = config['error_strings']['bad_data']
+        #self.empty_cell = config['error_strings']['empty_cell']
         self.blacklisted = config['error_strings']['blacklisted']
-        self.not_whitelisted = config['error_strings']['not_whitelisted']
-        self.no_regex_match = config['error_strings']['no_regex_match']
-        self.empty_okay_string = config['control_strings']['empty_okay']
+        #self.not_whitelisted = config['error_strings']['not_whitelisted']
+        #self.no_regex_match = config['error_strings']['no_regex_match']
+        #self.empty_okay_string = config['control_strings']['empty_okay']
 
         self.verbose = kwargs.get('verbose')
 
-        self.whitelists = {}
-        for item in config['whitelist']:
-            with open(item['vals_file_path']) as values_file:
-                self.whitelists[item['header_name']] = self.parse(values_file)
+        # self.whitelists = {}
+        # for item in config['whitelist']:
+        #     with open(item['vals_file_path']) as values_file:
+        #         self.whitelists[item['header_name']] = self.parse(values_file)
 
         self.blacklists = {}
         for item in config['blacklist']:
             with open(item['vals_file_path']) as values_file:
                 self.blacklists[item['header_name']] = self.parse(values_file)
 
-        self.regexs = {}
-        for item in config['regexs']:
-            with open(item['vals_file_path']) as values_file:
-                self.regexs[item['header_name']] = self.parse(values_file)
+        # self.regexs = {}
+        # for item in config['regexs']:
+        #     with open(item['vals_file_path']) as values_file:
+        #         self.regexs[item['header_name']] = self.parse(values_file)
 
     def handler(self, **kwargs):
         map = kwargs['map']
