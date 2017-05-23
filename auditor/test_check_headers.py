@@ -37,6 +37,8 @@ class check_lookupfile_headers(unittest.TestCase):
                         new_rows[index] = row
                     except IndexError:
                         new_rows.append(row)
-        for index, row in enumerate(new_rows):
-            print row
+        with open("Output.csv", "wb") as text_file:
+            writer = csv.writer(text_file)
+            writer.writerows(new_rows)
+        self.assertTrue(filecmp.cmp('Output.csv', 'Test_Output.csv', shallow=False),"result is Unexpected")
 unittest.main()
